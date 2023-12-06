@@ -1,0 +1,133 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{amssymb,amsfonts,color,graphicx,amsthm,amsmath,hyperref,inputenc,url}
+\voffset=-2cm
+\hoffset=-2.25cm
+\textheight=24cm
+\textwidth=17.25cm
+\setlength\parindent{0pt}
+\renewcommand{\baselinestretch}{1.5}
+
+\newcommand{\xd}{\dot{x}}
+\newcommand{\yd}{\dot{y}}
+\newcommand{\zd}{\dot{z}}
+
+
+
+
+
+\title{Apparent Competition}
+\author{Chaorong Chen, Lulu Lai, Tianhong Wang, Nhat Thanh Tran  }
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Competition is the harmful interaction between species due to limited supply of resources. There are three main competition mechanisms: interference, exploitative, and apparent competition\cite{wiki}. Interference competition happens between individuals by directly fighting for resources; exploitative competition occurs indirectly through a common limiting resource; and apparent competition occurs indirectly between two prey species with shared natural enemies\cite{bonsall}. The indirect interaction causing by apparent competition can potentially more broadly control the structure of ecological communities in time and space, since it can be reflected in many aspects of distribution and abundance of individual species. With apparent competition, there could be different forms of shared enemy effects (Figure \ref{fig:CompetitionDiagram}).\cite{holt}\\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Figure/Math227AProjectDiagram.png}
+    \caption{Community modules (sensu Holt 1997a). C denotes a natural enemy and R denotes two different species. The positive and negative signs denote positive and negative effects respectively.}
+    \label{fig:CompetitionDiagram}
+\end{figure}
+
+The effects of apparent competition have previously been studied theoretically and experimentally. However, if we were able to use multi-species model to study apparent competition, it would help us to further investigate the equilibrium and stability of the interactions between different species and better understand the role it plays in explaining broad biodiversity patterns\cite{bonsall}.
+
+\section{Mathematical Analysis}
+We first start with the simple model that describe the interaction between two competing species 
+\begin{align}
+    \xd &= r_1 x\left(1 - \dfrac{x+y}{K}\right) - d_1 x,\\
+    \yd &= r_2 y\left(1 - \dfrac{x+y}{K}\right) - d_2 y,
+\end{align}
+where $r_1 > r_2 > 0 $ are the growth rates, and $d_1$ and $d_2$ are the death rates. 
+
+When $\xd=0$ and $\yd=0 $, there are three equilibrium solution: $(0,0), (K-\dfrac{Kd_1}{r_1},0)$, and $(0,K-\dfrac{Kd_2}{r_2})$. The nontrivial solution need $r_1=r_2$, which means it doesn't exist. To analyze the stability of equilibrium, we linearize the equation near the equilibrium with Jacobin matrix which is \[
+\begin{pmatrix}
+    r_1-\dfrac{2r_1 x}{K}-\dfrac{r_1 y}{K}-d_1 & \dfrac{-r_1 x}{K}\\
+    \dfrac{-r_2 x}{K} & r_2-\dfrac{-r_2 x}{K}-\dfrac{-2r_2 y}{K}-d_2\\
+\end{pmatrix}
+\]
+Next, we plugin the equilibrium to solve each
+eigenvalue of Jacobin matrix corresponding to different equilibrium.\\
+For $(0,0)$, the eigenvalues are $r_1-d_1$ and $r_2-d_2$. In the first condition, both species have larger net growth rate $"r-d"$ larger than 0, then the equilibrium will be a source, which is unstable. If only species one has a larger net growth rate, which means $r_1-d_1>0$ and $r_2-d_2<0$, then the equilibrium point will be the saddle node, which is also unstable. If one specie has $r-d=0$, and the other species has $r-d<=0$, then the equilibrium point is weakly stable. If none of the species have a larger growth rate than death rate, then the equilibrium will be a sink, which is stable since the the species will die faster than grow.\\
+For $(K-\dfrac{Kd_1}{r_1},0)$, we have two eigenvalue which are $d_1-r_1$ and $\dfrac{(d_1r_2-d_2r_1)}{r_1}$. Since the negative equilibrium is meaningless, so $r_1>d$. Thus, $d_1-r_1<0$. If $d_1r_2-d_2r_1>0$, then the equilibrium is a saddle node, which is unstable. If $d_1r_2=d_2r_1$, then the equilibrium is weakly stable. If $d_1r_2-d_2r_1<0$, then the equilibrium will be a stable sink. \\
+For $(0,K-\dfrac{Kd_2}{r_2})$, the eigenvalues are $d_2-r_2$ and $\dfrac{-(d_1r_2-d_2r_1)}{r_2}$, where $r_2>d$ since the equilibrium is positive. If $d_1r_2-d_2r_1<0$, then the equilibrium is a saddle node, which is unstable. If $d_1r_2=d_2r_1$, then the equilibrium is weakly stable. If $d_1r_2-d_2r_1>0$, then the equilibrium will be a stable sink.\\
+Next, we assume that the two species do not compete directly, but instead they are both subject to the same predator $z(t)$. We can describe this system as
+\begin{align}
+    \xd &= r_1 x\left(1 - \dfrac{x}{K}\right) - d_1 x - \beta x z,\label{eq:ACX} \\
+    \yd &= r_2 y\left(1 - \dfrac{y}{K}\right) - d_2 y - \beta y z,\label{eq:ACY}\\
+    \zd &= \beta z (x+y) - az,\label{eq:ACZ}
+\end{align}
+where $\beta$ is the infection or predation rate and $a$ is the predator death rate (or in the case of parasite, this is the death rate of infected individuals). 
+
+For the equilibrium $(x,y,z)=(0,0,0)$, there are three eigenvalues, which are $r_1-d_1,r_2-d_2,-a$. Since $a>0$, then $-a<0$. If at least one of the preys has $r-d>0$, then the equilibrium is unstable. If $r-d=0$, whereas the other prey has $r-d\le 0$, then the equilibrium is weakly stable. If both species has $r-d<0$, then the equilibrium is stable.
+
+Next, we consider the equilibrium point $(x,y,z)=(K - \frac{Kd_1}{r_1},0,0)$. We have the eigenvalues are $d_1-r_1, \dfrac{-\beta d_1 K-ar_1+\beta K r_1}{r_1},r_2-d_2$. If either $d_1>r_1$ or $r_2> d_2$, then this is unstable. Suppose $d_1 < r_1$ and $r_2 < d_2$, then we have if $\beta K(r_1-d_1) < a r_1$, then it is stable, otherwise it is unstable. Similar analysis can be done for the equilibrium point $(x,y,z)=(0,K - \frac{Kd_2}{r_2},0)$. We have the eigenvalues are $r_1-d_1, d_2-r_2, \dfrac{-\beta d_2 K-ar_2+\beta K r_2}{r_2}$. Therefore, if either $r_1 > d_1$ or $d_2>r_2$, then this is unstable. Suppose that $r_1<d_1$ and $d_2 < r_2$, then this is a stable equilibrium if $\beta K(r_2-d_2) < a r_2$, otherwise it will be unstable.
+
+
+Next, we consider the equilibrium point $(x,y,z) = (\frac{K(r_1-d_1)}{r_1},\frac{K(r_2-d_2)}{r_2}, 0)$. We have the eigenvalues are $d_1-r_1,d_2-r_2, \beta K(\frac{r_1-d_1}{r_1}+\frac{r_2-d_2}{r_2}) - a$. Since the first 2 eigenvalues are always negative by assumption, we have this is unstable if $\beta K(\frac{r_1-d_1}{r_1}+\frac{r_2-d_2}{r_2}) < a$.
+
+Next, we consider the condition that predator exists ($z\ne 0$). Suppose species 1 is stronger than the other, which means $r_1-d_1>r_2-d_2$. And to analyze the natural condition or a healthy system, we assume the growth rate for three species are larger than their death rate($r>d,\beta K>a $). Then, the equilibrium $(0,a/
+\beta, r_2-d_2-\frac{r_2a}{\beta K})$ has eigenvalue $(r_1-d_1)-(r_2-d_2)+\frac{ar_2}{\beta    K}>0$ and eigenvalue $(-\frac{ar_2}{\beta K}+(\frac{a^2r_2^2}{\beta^2 K^2}+4a(r_2-d_2)-4\frac{a^2 r_2}{\beta K})^{1/2})/2$ and $(-\frac{ar_2}{\beta K}+(\frac{a^2r_2^2}{\beta^2 K^2}-4a(r_2-d_2)-4\frac{a^2 r_2}{\beta K})^{1/2})/2<0$, so it is unstable.\\
+When $(r_1-d_1)-(r_2-d_2)>\frac{ar_1}{\beta K}$, which means one species is much stronger than the other, the equilibrium $(a/\beta,0, r_1-d_1-\frac{r_1a}{\beta K})$ has three eigenvalues--$(r_2-d_2)-(r_1-d_1)+\frac{ar_1}{\beta K}<0$, $(-\frac{ar_1}{\beta K}+(\frac{a^2r_1^2}{\beta^2 K^2}+4a(r_1-d_1)-4\frac{a^2 r_1}{\beta K})^{1/2})/2<0$ and $(-\frac{ar_1}{\beta K}+(\frac{a^2r_1^2}{\beta^2 K^2}-4a(r_1-d_1)-4\frac{a^2 r_1}{\beta K})^{1/2})/2<0$, which means it is a stable equilibrium. And the stronger species coexist with predator is the preferred final condition. And the 3 species coexist equilibrium is unstable in this condition.\\
+When $(r_1-d_1)-(r_2-d_2)<\frac{ar_1}{\beta K}$, the difference between two preys are not that large, the equilibrium $(a/\beta,0, r_1-d_1-\frac{r_1a}{\beta K})$ is unstable since $(r_2-d_2)-(r_1-d_1)+\frac{ar_1}{\beta K}>0$. But the equilibrium that three species $(x,y,z)=(\frac{\beta K((r_1-d_1)-(r_2-d_2))+ar_2}{\beta (r_1+r_2)},\frac{\beta K(r_2-d_2-(r_1-d_1)+ar_1}{\beta (r_1+r_2)},\frac{2\beta Kr_1r_2-ar_1r_2}{\beta^2 K (r_1+r_2)})$ is stable. That is because it has three eigenvalues which are  $\frac{(r_1+r_2)(\beta K(r_2-d_2-(r_1-d_1)-ar_2))}{\beta}<0$,$\frac{(r_1+r_2)(\beta K(r_1-d_1-(r_2-d_2)-ar_1))}{\beta}<0$, and $K(r_1+r_2)(\beta K (r_1d_2+r_2d_1-2r_1r_2)+ar_1r_2)<0$.
+%We are also interested in the non trivial equilibrium, i.e. $x,y,z$ are non zeroes. Thus equations \ref{eq:ACX}, \ref{eq:ACY}, \ref{eq:ACZ} becomes
+%\begin{align}
+    %r_1\left(1- \dfrac{x}{K}\right) - d_1 - \beta z &= 0\label{eq:ACXNonEq}\\
+    %r_2\left(1-\dfrac{y}{K}\right) - d_2 - \beta z & = 0\label{eq:ACYNonEq}\\
+    %\beta (x+y) - a &= 0 \label{eq:ACZNonEq}
+%\end{align}
+%Subtracting equation \ref{eq:ACXNonEq} and \ref{eq:ACYNonEq} we obtain
+%\begin{align}
+    %y - x &= K(d_1 - r_1 + r_2 - d_2),\\
+    %x + y &= \dfrac{a}{\beta}.
+%\end{align}
+%Solving this systems gives
+%\begin{align}
+    %x_\text{eq} &= \dfrac{a}{\beta} - \dfrac{a/\beta + K(d_1 - r_1 + r_2 - d_2)}{2},\\ 
+    %y_\text{eq} &= \dfrac{a/\beta + K(d_1 - r_1 + r_2 - d_2)}{2}.
+%\end{align}
+% An interpretation for this equilibrium state is that if the number of predator remain the same then it does not depend on the actual number of predator. This makes sense as if $z$ is constant then we can combine write the term $d_1x +\beta xz = c_1 x$ and $d_2 y + \beta y z = c_2 y$ for some constant $c_1, c_2$. Then we can reduce this system to the original model with out predator as predation effects blend in as a natural death rate.
+
+\section{Numerical Analysis}
+In this section we will use numerical solver to approximate the solution of the system. For the simulation, we set $r_1=20, r_2 = 15, d_1 = d_2 = 10, K = 300$ and the initial condition is $x_0 = 100$ and $y_0 = 50$. Figure \ref{fig:Competition} shows the plot of species for the competition model, we can see that species with higher growth rate grows to the stable equilibrium $K - \frac{Kd_1}{r_1}$ and the lower growth rate decays to $0$. This matches with our analysis of the system. 
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figure/CompetitionModel.jpg}
+    \caption{Plot of competition model for $r_1=20, r_2 = 15, d_1 = d_2 = 10, K = 300$,  $x_0 = 100$, $y_0 = 50$.}
+    \label{fig:Competition}
+\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figure/ApparentCompetition.jpg}
+    \caption{Plot of apparent competition model for $r_1=20, r_2 = 15, d_1 = d_2 = 10, K = 300, \beta = 2, a = 50$,  $x_0 = 100$, $y_0 = 50$,  $z_0 = 2$.}
+    \label{fig:ApparentCompetition}
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figure/ApparentCompetitionCoexists.jpg}
+    \caption{Plot of apparent competition model for $ d_1 = d_2 = 10, K = 300, \beta = 2, a = 50$,  $x_0 = 100$, $y_0 = 50$,  $z_0 = 2$.}
+    \label{fig:ApparentCompetitionCoexists}
+\end{figure}
+
+Next, Figure \ref{fig:ApparentCompetition} shows the plot of apparent competition with various conditions. This allows us to understand the effect of predator in the system. First, we draw our attention to the ``+" lines, this is the system where both species co-exists with no competition at all (i.e. $z = 0$). We observed that both species grow up to the equilibrium $(150,100,0)$, This align with our mathematical analysis. Next, we examine the ``o" lines, this is the system where the predator shows up and only hunts the slower growth rate species. We observe that the species with no predator interaction has the same growth as before. However, species that interacts with the predator has a lower equilibrium than before, and also it is lower than the initial value. This makes sense as this species receives more environmental constraint than the other. Also, we see some oscillation at the start this could indicate that the eigenvalues for this system are complex, also this can be describe in term of seasonal effect of prey and predator. As the predator population grows the prey decreasing, but then with the decreasing of resource provide by the prey, the predator population will decrease and so the prey increases again. 
+
+Next, we come to the important analysis of the paper, we want to understand the affect of apparent competition. This is shown in the ``-x" lines of the plot. Since both of the prey interact with the predator, both of the species population is much lower than their initial value and also previous equilibrium. In particular, we see the extinction of slow growth rate species (species 2). This is exactly the same as the competition model. Also, the new equilibrium point for fast growth rate species (species 1) is the same as our analysis for the case where only one of the species interacts with the predator. This can be explain by the fact that since one of the species undergo extinction, we can treat $y=0$ this means that we went back to the case there are only one prey and predator. 
+
+Lastly, we will demonstrate the difference between the apparent competition and direct competition. From Figure \ref{fig:ApparentCompetitionCoexists}, we can see that if $r_1$ and $r_2$ are closed to each other then rather than one species grows and one species dies off, we have both species coexist. 
+
+From these plots, we come to a conclusion that apparent competition does in fact is similar to direct competition. However, it also has other effect as it allows multiple species to exist at the same time. Also, understanding apparent competition allow us to completely remove one species from the system, while maintain the others. This particular helpful in oncology because we want to design virus not to target particular cancer cell, but instead interact with other cells. This allows us to remove cancer cells entirely instead of keeping them at lower population.    
+
+
+
+
+
+\section{Conclusion}
+Competition plays an important role in understanding the ecological system and interpreting the observed phenomenon, where apparent competition is critical for ecologists to explore the interaction, predation and competition between different species in a determined community structure. In natural ecological systems,  direct competition can be very weak, while apparent competition plays a central part in the regulation of the ecosystem. But usually, direct competition and apparent competition are found to exist simultaneously that preys compete with each other can also be predators on other species. Also, as the world and the whole ecosystem is increasingly impacted by human activity, apparent competition may be important than ever for us human to maintain the fragile balance of the system and deal with issues ranging from infectious disease outbreak to the interplay of endangered species and the supply of our life essentials \cite{holt}. Apparent competition should be recognized more as the climate change, pandemic and other disasters these years have committed irreparable damage on natural ecosystem and society.
+
+\newpage
+
+\bibliographystyle{siam}
+\bibliography{bib}
+\end{document}
